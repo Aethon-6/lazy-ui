@@ -1,6 +1,7 @@
 // 配置axios
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import { ElMessage } from "element-plus";
 
 // 创建axios实例
 const instance = axios.create({
@@ -14,7 +15,7 @@ instance.interceptors.request.use(
     //  获取请求头
     const headers = config.headers || {};
     // 向请求头添加token
-    headers["Authorization"] = "token";
+    //headers["Authorization"] = "token";
     config.headers = headers;
     return config;
   },
@@ -27,10 +28,16 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     // 对响应数据进行处理
-    return response;
+    const res = response.data;
+    debugger
+    if (res.code != "200") {
+      ElMessage.error(res.msg);
+    }
+    return res;
   },
   (error: AxiosError) => {
     // 处理响应错误
+    ElMessage.error(error.message);
     return Promise.reject(error);
   }
 );
