@@ -43,7 +43,7 @@ const handleLogin = () => {
             loading.value = true
             loginFormData.validateCodeKey = validateCodeKey.value
             useUserStore().login(loginFormData)
-                .then((res) => {
+                .then((_res) => {
                     router.push({ path: "/" })
                 })
                 .catch(() => {

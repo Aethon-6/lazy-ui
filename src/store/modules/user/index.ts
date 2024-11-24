@@ -1,9 +1,12 @@
 import { ref } from "vue";
+import store from "@/store";
 import { defineStore } from "pinia";
-import { loginApi, loginCodeApi } from "@/api/login/index";
+import { loginApi, logoutApi } from "@/api/login/index";
 import { getUserInfoApi } from "@/api/user/index";
 import { type LoginRequestData } from "@/api/login/types/login";
 import { getToken, removeToken, setToken } from "@/utils/cache/cookies";
+import { resetRouter } from "@/router/index";
+import { ElMessage } from "element-plus";
 
 export const useUserStore = defineStore("user", () => {
   const token = ref<string>(getToken() || "");
@@ -25,9 +28,21 @@ export const useUserStore = defineStore("user", () => {
     setToken(data.accessToken);
     token.value = data.accessToken;
   };
-
-  const loginCode = async () => {
-    const { data } = await loginCodeApi();
+  const logout = () => {
+    logoutApi()
+      .then((res) => {
+        if (res.code) {
+          removeToken();
+          token.value = "";
+          resetRouter();
+          location.reload();
+        } else {
+          ElMessage.error(res.msg);
+        }
+      })
+      .catch((err) => {
+        ElMessage.error(err);
+      });
   };
 
   const getUserInfo = async () => {
@@ -35,5 +50,10 @@ export const useUserStore = defineStore("user", () => {
     userName.value = data.userName;
   };
 
-  return { userName, login, getUserInfo };
+  return { userName, login, logout, getUserInfo };
 });
+
+/** 在 setup 外使用 */
+export function useUserStoreHook() {
+  return useUserStore(store);
+}

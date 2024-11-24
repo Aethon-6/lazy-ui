@@ -2,10 +2,12 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { ElMessage } from "element-plus";
 import { get, merge } from "lodash-es";
 import { getToken } from "./cache/cookies";
+import { useUserStoreHook } from "@/store/modules/user/index";
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
 function logout() {
-  location.reload();
+  debugger
+  useUserStoreHook().logout();
 }
 
 /** 创建请求实例 */
