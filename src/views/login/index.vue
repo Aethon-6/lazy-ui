@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue"
 import { useRouter } from "vue-router"
-import { type FormInstance, type FormRules, ElMessage } from "element-plus"
+import { type FormInstance, type FormRules } from "element-plus"
 import { User, Lock, Key, Picture, Loading } from "@element-plus/icons-vue"
 import { type LoginRequestData } from "@/api/login/types/login"
-import { loginCodeApi, loginApi } from "@/api/login/index"
+import { loginCodeApi } from "@/api/login/index"
 import { useUserStore } from "@/store/modules/user/index"
 import { useFocus } from "./hooks/useFocus"
 import Owl from "./components/Owl.vue"
@@ -128,13 +128,6 @@ createCode()
     align-items: center;
     width: 100%;
     min-height: 100%;
-
-    .theme-switch {
-        position: fixed;
-        top: 5%;
-        right: 5%;
-        cursor: pointer;
-    }
 
     .login-card {
         width: 480px;

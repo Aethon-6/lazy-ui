@@ -1,14 +1,57 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import Layout from "@/layout/index.vue";
+import component from "element-plus/es/components/tree-select/src/tree-select-option.mjs";
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: () => import("@/views/home/index.vue"),
-  },
   {
     path: "/login",
     name: "Login",
     component: () => import("@/views/login/index.vue"),
+  },
+  {
+    path: "/",
+    name: "Home",
+    meta: {
+      icon: "HomeFilled",
+    },
+    component: Layout,
+    redirect: "/home",
+    children: [
+      {
+        path: "/home",
+        name: "首页",
+        meta: {
+          icon: "home",
+        },
+        component: () => import("@/views/home/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/article",
+    name: "文章管理",
+    meta: {
+      icon: "UserFilled",
+    },
+    component: Layout,
+    redirect: "article/all",
+    children: [
+      {
+        path: "/article/all",
+        name: "全部文章",
+        meta: {
+          icon: "avatar",
+        },
+        component: () => import("@/views/articles/AllArticles.vue"),
+      },
+      {
+        path: "/article/me",
+        name: "我的文章",
+        meta: {
+          icon: "avatar",
+        },
+        component: () => import("@/views/articles/MyArticles.vue"),
+      },
+    ],
   },
 ];
 

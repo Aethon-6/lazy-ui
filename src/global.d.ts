@@ -1,2 +1,2 @@
-import 'vue';
-import '../types/api';
+import "vue";
+import "../types/api";
