@@ -8,10 +8,10 @@
             </h1>
         </div>
         <div>
-            <template v-if="isLoggedIn">
+            <template v-if=userStore.isLogin>
                 <el-dropdown trigger="click" @command="handleCommand">
                     <div>
-                        {{ userInfo.username }}
+                        {{ userStore.userName }}
                         <el-icon>
                             <caret-bottom />
                         </el-icon>
@@ -30,22 +30,16 @@
 <script setup>
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia';
-import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
+import { useUserStore } from "@/store/modules/user/index"
 const userStore = useUserStore();
-const { userInfo, isLoggedIn } = storeToRefs(userStore);
-const { removeUser } = userStore;
 
-
-const router = useRouter();
 const commands = ({
     toPersonal: () => {
         console.log('toPersonal')
     },
     toLogout: () => {
         console.log('toLogout')
-        removeUser();
-        router.push('/register')
+        userStore.logout()
     }
 });
 function handleCommand(command) {

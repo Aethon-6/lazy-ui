@@ -1,6 +1,8 @@
 <template>
     <div class="page-container">
-        <header>我是 Header</header>
+        <header>
+            <page-header />
+        </header>
         <main>
             <div class="left">
                 <page-sidebar></page-sidebar>
@@ -13,6 +15,7 @@
 </template>
 <script setup lang="ts">
 import PageSidebar from './components/PageSidebar.vue';
+import PageHeader from './components/PageHeader.vue'
 </script>
 
 <style lang="scss">
@@ -24,7 +27,7 @@ import PageSidebar from './components/PageSidebar.vue';
 
     >header {
         height: 54px;
-        background: #000;
+        background: #f4f0f0;
         color: #fff;
     }
 

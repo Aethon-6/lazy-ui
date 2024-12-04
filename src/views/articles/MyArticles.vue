@@ -1,3 +1,5 @@
 <template>
-    MyArticle
+    <div class="app-container">
+        MyArticle
+    </div>
 </template>

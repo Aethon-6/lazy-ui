@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Layout from "@/layout/index.vue";
-import component from "element-plus/es/components/tree-select/src/tree-select-option.mjs";
 const routes = [
   {
     path: "/login",
@@ -23,6 +22,25 @@ const routes = [
           icon: "home",
         },
         component: () => import("@/views/home/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/sys",
+    name: "系统管理",
+    meta: {
+      icon: "Setting",
+    },
+    component: Layout,
+    redirect: "/sys/user",
+    children: [
+      {
+        path: "/sys/user",
+        name: "用户管理",
+        meta: {
+          icon: "User",
+        },
+        component: () => import("@/views/sys/user/index.vue"),
       },
     ],
   },

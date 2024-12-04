@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import store from "@/store";
 import { defineStore } from "pinia";
 import { loginApi, logoutApi } from "@/api/login/index";
@@ -12,6 +12,7 @@ export const useUserStore = defineStore("user", () => {
   const token = ref<string>(getToken() || "");
   const userName = ref<string>("");
 
+  const isLogin = computed(() => userName.value);
   /** 登录 */
   const login = async ({
     loginName,
@@ -50,7 +51,7 @@ export const useUserStore = defineStore("user", () => {
     userName.value = data.userName;
   };
 
-  return { userName, login, logout, getUserInfo };
+  return { userName, isLogin, login, logout, getUserInfo };
 });
 
 /** 在 setup 外使用 */
